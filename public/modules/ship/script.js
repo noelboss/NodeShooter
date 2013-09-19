@@ -1,5 +1,3 @@
-var ships;
-
 (function($){
     $(document).ready(function(){
         var keyRight = 68, // D
@@ -7,20 +5,6 @@ var ships;
             keyUp = 87, // W
             keyDown = 83; // S
         
-        alert(ships);
-        for (var sid in ships) {
-            var ship = ships[sid];
-            console.log('Shipd: ' + ship.id);
-            console.log(ship);
-            var $s = $('div');
-            $s.addClass('mod-ship')
-                .attr('id','ship–'+ship.id)
-                .css({ 
-                    'left': ship.x,
-                    'top': ship.y 
-                }).appendTo($('body'));
-        }
-            
         $(window).keydown(function(e) {
             //console.log(event.which);
             switch (event.which) {
@@ -48,6 +32,19 @@ var ships;
 })(jQuery);
 
 
-socket.on('sendShip', function(data) {
-    ships = data;
+socket.on('sendShip', function(ships) {
+    for (var sid in ships) {
+        var ship = ships[sid];
+        console.log('Shipd: ' + ship.id);
+        console.log(ship);
+        
+        var $s = $('<div></div>');
+        console.log($s);
+        $s.addClass('mod-ship')
+            .attr('id','ship–'+ship.id)
+            .css({ 
+                'left': ship.x+'%',
+                'top': ship.y+'%' 
+            }).appendTo($('body'));
+    }
 });
