@@ -1,4 +1,4 @@
-var socket = io.connect()
+var socket = io.connect();
 
 function addMessage(msg, pseudo) {
    $("#chatEntries").append('<div class="message"><p>' + pseudo + ' : ' + msg + '</p></div>');
@@ -28,7 +28,7 @@ socket.on('message', function(data) {
 });
 
 $(function() {
-   $("#chatControls").hide();
-   $("#pseudoSet").click(setPseudo);
-   $("#submit").click(sentMessage);
+
+
+    ShipUtils.setInitialPosition();
 });
