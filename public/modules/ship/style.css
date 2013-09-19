@@ -7,12 +7,7 @@
         left: 50%;
         background: #000;
 	}
-    #console {
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        height: 100px;
-        background: #000;
-        border-top: 1px solid #999;
+    .mod-ship input {
+        display: none;
     }
 }
