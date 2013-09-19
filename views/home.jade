@@ -1,18 +1,15 @@
 doctype 5
-html
+html.mod-space
    head
-      title Chat
+      title NodeShooter
       script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js')
       script(src="/socket.io/socket.io.js")
       script(src="js/terrific-2.0.1.js")
       script(src="js/script.js")
+      link(rel="stylesheet", href="modules/ship/style.css")
+      link(rel="stylesheet", href="modules/space/style.css")
+      script(src="modules/ship/script.js")
+      
    body
-      div.container
-         header
-            h1 A Chat application with Node.js and Socket.io
-         input(type='text')#pseudoInput
-         button#pseudoSet Set Pseudo
-         div#chatEntries
-         div#chatControls
-            input(type='text')#messageInput
-            button#submit Send
+      div.mod-ship
+      div#console
