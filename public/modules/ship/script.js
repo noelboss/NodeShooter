@@ -38,7 +38,7 @@ socket.on('sendShip', function(ships) {
         console.log('Shipd: ' + ship.id);
         console.log(ship);
         
-        var $s = $('<div></div>');
+        var $s = $('<div><span>'+ship.id+'</span></div>');
         console.log($s);
         $s.addClass('mod-ship')
             .attr('id','ship–'+ship.id)

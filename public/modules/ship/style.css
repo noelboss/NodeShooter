@@ -7,7 +7,9 @@
         left: 50%;
         background: #000;
 	}
-    .mod-ship input {
-        display: none;
+    .mod-ship span {
+        position: absolute;
+        bottom: -20px;
+        color: #000;
     }
 }
