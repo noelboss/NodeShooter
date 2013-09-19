@@ -8,8 +8,6 @@ var express = require('express'),
     ships = {},
     port = 3000;
 
-
-
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.set("view options", { layout: false });
@@ -27,7 +25,7 @@ io.sockets.on('connection', function (socket) {
     ships[socket.id] = shipFactory.newShip(socket.id);
     console.log('Ship Connected '+socket.id);
     
-    io.sockets.emit ('sendShip', ships);
+    io.sockets.emit ('sendShip', ships, socket.id);
 
     socket.on('disconnect', function () {
         console.info('Disconnect ship ' + socket.id);

@@ -32,11 +32,11 @@
 })(jQuery);
 
 
-socket.on('sendShip', function(ships) {
+socket.on('sendShip', function(ships, id) {
     for (var sid in ships) {
         var ship = ships[sid];
-        var $s = $('<div><span>'+ship.id+'</span></div>');
-        console.log("add Ship $('#ship-"+ship.id+"').remove();");
+        var $s = $('<div><i></i><i></i><i></i><span>'+ship.id+'</span></div>');
+        console.log("add Ship "+ship.id);
 
         $s.addClass('mod-ship').addClass('mod-ship-'+ship.id)
             .css({ 

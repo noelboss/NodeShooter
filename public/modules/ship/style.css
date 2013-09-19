@@ -5,12 +5,36 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        background: #000;
+        font: 75% "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
 	}
     .mod-ship span {
         position: absolute;
-        bottom: -40px;
-        color: #000;
+        width: 200px;
+        bottom: -15px;
+        left: -85px;
+        color: #ddd;
         font-size: 10px;
+        text-align: center;
+    }
+    .mod-ship i{
+        position: absolute;
+        display: block;
+        background: #aaa;
+        left: 0;
+        height: 10px;
+    }
+    .mod-ship i:nth-child(1) {
+        bottom: 0;
+        width: 100%;
+    }
+    .mod-ship i:nth-child(2) {
+        bottom: 10px;
+        left: 7.5px;
+        width: 15px;
+    }
+    .mod-ship i:nth-child(3) {
+        top: 0;
+        left: 12.5px;
+        width: 5px;
     }
 }
