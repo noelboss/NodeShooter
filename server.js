@@ -25,10 +25,13 @@ server.listen(port);
 
 io.sockets.on('connection', function (socket) {
     ships[socket.id] = shipFactory.newShip(socket.id);
+    console.log('Ship Connected '+socket.id);
+    
     io.sockets.emit ('sendShip', ships);
 });
 
 io.sockets.on('disconnect', function(socket) {
+    console.log('disconnect '+socket.id);
     io.sockets.emit ('removeShip', socket.id);
 });
 
