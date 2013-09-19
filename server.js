@@ -28,11 +28,13 @@ io.sockets.on('connection', function (socket) {
     console.log('Ship Connected '+socket.id);
     
     io.sockets.emit ('sendShip', ships);
+
+    socket.on('disconnect', function () {
+        console.info('Disconnect ship ' + socket.id);
+        io.sockets.emit ('removeShip', socket.id);
+    });
 });
 
-io.sockets.on('disconnect', function(socket) {
-    console.log('disconnect '+socket.id);
-    io.sockets.emit ('removeShip', socket.id);
-});
+
 
 console.log('Server runding on Port '+ port);
