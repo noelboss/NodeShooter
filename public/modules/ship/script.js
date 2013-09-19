@@ -32,7 +32,8 @@
 })(jQuery);
 
 
-socket.on('sendShip', function(data) {
-   console.log('Got Ship');
-   console.log(data);
+socket.on('sendShip', function(ships) {
+   for (var ship in ships) {
+       console.log('Shipd:' + ships[ship]);
+   }
 });

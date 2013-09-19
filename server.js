@@ -2,10 +2,10 @@ var express = require('express'),
     app = express(),
     server = require('http').createServer(app),
     io = require('socket.io').listen(server),
-    shipFactory = require('./public/modules/ship/shipFactory.js'),
+    shipFactory = require('./shipFactory.js'),
     jade = require('jade'),
     //lessMiddleware = require('less-middleware'),
-    ships = [],
+    ships = {},
     port = 3000;
     
 
@@ -18,16 +18,14 @@ app.configure(function() {
 });
 
 app.get('/', function(req, res){
-    var ship = shipFactory.newShip();
-    ships.push(ship);
-    console.log(ships);
     res.render('home.jade');
 });
 
 server.listen(port);
 
 io.sockets.on('connection', function (socket) {
-    
+    ships[socket.id] = shipFactory.newShip(socket.id);
+    console.log(ships);
     io.sockets.emit ('sendShip', ships);
 });
 
