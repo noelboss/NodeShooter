@@ -1,7 +1,7 @@
 var express = require('express'),
     app = express(),
     server = require('http').createServer(app),
-    io = require('socket.io').listen(server),
+    io = require('socket.io').listen(server, { log: false }),
     shipFactory = require('./shipFactory.js'),
     jade = require('jade'),
     //lessMiddleware = require('less-middleware'),
