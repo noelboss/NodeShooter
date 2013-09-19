@@ -5,7 +5,10 @@ var ShipUtils = {
 
         x = (Math.random() > 0.5) ? x * -1 : x * +1;
         y = (Math.random() > 0.5) ? y * -1 : y * +1;
-        
+
         console.info('Initial Position: x ' + x + ', y ' + y);
+
+        var socket = io.connect();
+        socket.emit('setShipPosition', {x: x, y: y});
     }
 };
