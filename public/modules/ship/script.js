@@ -35,11 +35,8 @@
 socket.on('sendShip', function(ships) {
     for (var sid in ships) {
         var ship = ships[sid];
-        console.log('Shipd: ' + ship.id);
-        console.log(ship);
-        
         var $s = $('<div><span>'+ship.id+'</span></div>');
-        console.log($s);
+
         $s.addClass('mod-ship')
             .attr('id','ship–'+ship.id)
             .css({ 
@@ -49,6 +46,7 @@ socket.on('sendShip', function(ships) {
     }
 });
 
-socket.on('removeShio', function(is) {
-    $('#mod-ship'+id).remove();
+socket.on('removeShip', function(id) {
+    console.log('Remove #ship-'+id);
+    $('#ship-'+id).remove();
 });

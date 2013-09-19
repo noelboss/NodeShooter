@@ -7,9 +7,9 @@ var express = require('express'),
     //lessMiddleware = require('less-middleware'),
     ships = {},
     port = 3000;
-    
 
-    
+
+
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.set("view options", { layout: false });
@@ -25,9 +25,9 @@ server.listen(port);
 
 io.sockets.on('connection', function (socket) {
     ships[socket.id] = shipFactory.newShip(socket.id);
-    console.log(ships);
     io.sockets.emit ('sendShip', ships);
 });
+
 io.sockets.on('disconnect', function(socket) {
     io.sockets.emit ('removeShip', socket.id);
 });
