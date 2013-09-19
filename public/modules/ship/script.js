@@ -33,7 +33,16 @@
 
 
 socket.on('sendShip', function(ships) {
-   for (var ship in ships) {
-       console.log('Shipd:' + ships[ship]);
+   for (var sid in ships) {
+       var ship = ships[sid];
+       console.log('Shipd: ' + ship.id);
+       console.log(ship);
+       var $s = $('div');
+       $s.addClass('mod-ship')
+           .attr('id','ship–'+ship.id)
+           .css({ 
+               'left': ship.x,
+               'top': ship.y 
+           }).appendTo($('body'));
    }
 });
