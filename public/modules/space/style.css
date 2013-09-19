@@ -1,0 +1,11 @@
+@media all {
+    .mod-space {
+        margin: 0;
+        padding: 0;
+        min-height: 100%;
+    }
+
+    .mod-space body {
+        background: #000;
+    }
+}
