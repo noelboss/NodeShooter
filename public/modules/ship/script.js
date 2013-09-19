@@ -49,6 +49,6 @@ socket.on('sendShip', function(ships) {
     }
 });
 
-socket.on('removeShuo', function(is) {
+socket.on('removeShio', function(is) {
     $('#mod-ship'+id).remove();
 });
