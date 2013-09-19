@@ -5,9 +5,8 @@
             keyUp = 87, // W
             keyDown = 83; // S
             
-        $('input').focus().keydown(function(e) {
+        $(window).keydown(function(e) {
             //console.log(event.which);
-            
             switch (event.which) {
                 case keyRight:
                     console.log("turn right");
