@@ -30,3 +30,9 @@
         });
     });
 })(jQuery);
+
+
+socket.on('sendShip', function(data) {
+   console.log('Got Ship');
+   console.log(data);
+});
