@@ -28,5 +28,11 @@ io.sockets.on('connection', function (socket) {
     console.log(ships);
     io.sockets.emit ('sendShip', ships);
 });
+io.sockets.on('disconnect', function(socket) {
+    ships = jQuery.grep(ships, function(value) {
+      return value != socket.id;
+    });
+    io.sockets.emit ('sendShip', ships);
+});
 
 console.log('Server runding on Port '+ port);
