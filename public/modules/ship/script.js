@@ -1,14 +1,33 @@
-var xTriggered = 0;
-$( "#console" ).keypress(function( event ) {
-  if ( event.which == 13 ) {
-     event.preventDefault();
-  }
-  xTriggered++;
-  var msg = "Handler for .keypress() called " + xTriggered + " time(s).";
-  $.print( msg, "html" );
-  $.print( event );
-});
- 
-$( "#other" ).click(function() {
-    $( "#target" ).keypress();
-});
+(function($){
+    $(document).ready(function(){
+        var keyRight = 68, // D
+            keyLeft = 65, // A
+            keyUp = 87, // W
+            keyDown = 83; // S
+            
+        $('input').focus().keydown(function(e) {
+            //console.log(event.which);
+            
+            switch (event.which) {
+                case keyRight:
+                    console.log("turn right");
+                    break;
+                    
+                case keyLeft:
+                    console.log("turn left");
+                    break;
+                    
+                case keyUp:
+                    console.log("accelerate");
+                    break;
+                    
+                case keyDown:
+                    console.log("slow down");
+                    break;
+                    
+                default:
+                
+            }
+        });
+    });
+})(jQuery);
