@@ -1,12 +1,8 @@
-(function($){
-    var shipId,
-        config;
+var shipId,
+    config;
     
-    socket.on('config', function(conf) {
-        config = conf;
-        shipId = config.shipId;
-    });
-
+    
+(function($){
     socket.on('buildShips', function(ships) {
         for (var sid in ships) {
             var ship = ships[sid];
@@ -42,15 +38,6 @@
     socket.on('removeShip', function(id) {
         console.log('Remove .mod-ship-'+id);
         $('.mod-ship-'+id).remove();
-    });
-    
-    $(document).ready(function(){
-        $(window).keydown(function(e) {
-            console.log('Keypress: '+e.which);
-            if(config.keys.hasOwnProperty(e.which)){
-                socket.emit('keyPress', {'sid': shipId, 'key': config.keys[e.which]});
-            }
-        });
     });
 })(jQuery);
 
