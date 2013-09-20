@@ -34,10 +34,9 @@ io.sockets.on('connection', function (socket) {
     console.log('Ship Connected '+socket.id);
     
     io.sockets.emit ('config', { 'keys': keys });
-    
     io.sockets.emit('buildShips', ships);
     
-    io.socket.on('shipMove', function(data) {
+    socket.on('shipMove', function(data) {
         var shipId = data.sid;
         var ship = ships[shipId];
         switch (data.direction) {
@@ -63,7 +62,7 @@ io.sockets.on('connection', function (socket) {
                 
             default:
         }
-        io.socket.emit('updatePosition', {sid: shipId, x: ship.x, y: ship.y });
+        io.sockets.emit('updatePosition', {sid: shipId, x: ship.x, y: ship.y });
         
     });
 
