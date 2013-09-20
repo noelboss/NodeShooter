@@ -29,8 +29,8 @@ var shipId,
     
     socket.on('updatePosition', function(ship) {
         $('.mod-ship-'+ship.sid).css({
-            'left': ship.x+'%',
-            'top': ship.y+'%' 
+            'left': ship.x+'px',
+            'top': ship.y+'px' 
         });
         
         for(var key in config.keys ){

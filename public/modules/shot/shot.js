@@ -2,10 +2,10 @@
     var createShot = function(shot) {
         console.log(shot);
         var $s = $('<i></i>');
-        $s.addClass('mod-ship').addClass('mod-ship-'+shot.id)
+        $s.addClass('mod-shot').addClass('mod-shot-'+shot.id)
             .css({ 
-                'left': shot.x+'%',
-                'top': shot.y+'%' 
+                'left': shot.x+'px',
+                'top': shot.y+'px' 
             }).appendTo($('body'));
     }
     

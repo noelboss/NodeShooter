@@ -2,8 +2,8 @@
 var newShot = function(ship) {
     return {
         'id': ship.id,
-        x: ship.x,
-        y: ship.y,
+        x: ship.x-15,
+        y: ship.y-15,
         direction: ship.direction
     };
 }
