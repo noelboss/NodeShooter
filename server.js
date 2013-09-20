@@ -12,8 +12,12 @@ var express = require('express'),
     keys = {
         65: "left", // A
         68: "right", // D
-        87: "down", // W
         83: "up", // S
+        87: "down", // W
+        37: "left", // Arrow left
+        39: "right", // Arrow right
+        38: "up", // Arrow up
+        40: "down", // Arrow down
         32: "shoot" // space
     };
 

@@ -6,4 +6,8 @@
         position: absolute;
         background: #991012;
     }
+    
+    .mod-shot-own {
+        background: #243299;
+    }
 }
