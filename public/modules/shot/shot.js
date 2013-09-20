@@ -9,7 +9,7 @@
             }).appendTo($('body'));
     }
     
-    socket.on('buildShots', function(shots) {
+    socket.on('createShots', function(shots) {
         for (var id in shots) {
             createShot(shots[id]);
         }

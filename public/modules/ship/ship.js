@@ -3,25 +3,32 @@ var shipId,
     
     
 (function($){
-    socket.on('buildShips', function(ships) {
+    
+    var createShip = function(ship){
+
+        var $s = $('<div><i></i><i></i><i></i><span>'+ship.id+'</span></div>');
+        if(shipId == ship.id){
+            $s.addClass('mod-ship-own');
+        }
+        $s.addClass('mod-ship').addClass('mod-ship-'+ship.id)
+            .css({ 
+                'left': ship.x+'%',
+                'top': ship.y+'%' 
+            }).appendTo($('body'));
+    }
+    
+    socket.on('createShips', function(ships) {
         for (var sid in ships) {
-            var ship = ships[sid];
-            var $s = $('<div><i></i><i></i><i></i><span>'+ship.id+'</span></div>');
-            console.log("add Ship "+ship.id);
-            if(shipId == ship.id){
-                $s.addClass('mod-ship-own');
-            }
-            $s.addClass('mod-ship').addClass('mod-ship-'+ship.id)
-                .css({ 
-                    'left': ship.x+'%',
-                    'top': ship.y+'%' 
-                }).appendTo($('body'));
+            createShip(ships[sid]);
         }
     });
     
+    socket.on('createShip', function(ship) {
+        createShip(ship);
+    });
+    
     socket.on('updatePosition', function(ship) {
-        console.log('Move .mod-ship-'+ship.sid);
-        $('.mod-ship-'+ship.sid).css({ 
+        $('.mod-ship-'+ship.sid).css({
             'left': ship.x+'%',
             'top': ship.y+'%' 
         });
@@ -35,7 +42,6 @@ var shipId,
 
 
     socket.on('removeShip', function(id) {
-        console.log('Remove .mod-ship-'+id);
         $('.mod-ship-'+id).remove();
     });
 })(jQuery);
