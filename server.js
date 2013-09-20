@@ -8,7 +8,9 @@ var express = require('express'),
     ships = {},
     shots = {},
     port = 3000,
-    speed = 3,
+    boostduration = 300,
+    maxSpeed = 5,
+    minSpeed = 1,
     keys = {
         65: "left", // A
         68: "right", // D
@@ -16,10 +18,17 @@ var express = require('express'),
         87: "down", // W
         37: "left", // Arrow left
         39: "right", // Arrow right
-        38: "up", // Arrow up
-        40: "down", // Arrow down
+        40: "up", // Arrow up
+        38: "down", // Arrow down
         32: "shoot" // space
     };
+    
+    /*
+var child_process = require('child_process');
+setTimeout(function () {
+    child_process.fork('./long-running', [start]);
+}, 1000);
+*/
 
 
 app.set('views', __dirname + '/views');
@@ -36,6 +45,41 @@ app.get('/', function(req, res){
 server.listen(port);
 
 
+var moveShip = function(ship){
+    if ( ship.speed > minSpeed){
+        ship.speed = ship.speed - (ship.move / 5);
+    }
+    if(ship.speed < minSpeed){
+        ship.speed = minSpeed;
+    }
+    ship.move--;
+    if(ship.move > 0){
+        switch (ship.direction) {
+            case 'left':
+                ship.x = ship.x - ship.speed;
+                break;
+            
+            case 'right':
+                ship.x = ship.x + ship.speed;
+                break;
+
+            case 'up':
+                ship.y = ship.y + ship.speed;
+                break;
+                
+            case 'down':
+                ship.y = ship.y - ship.speed;
+                break;
+
+        }
+        
+        io.sockets.emit('updatePosition', ship);
+        
+        moveShip(ship);
+    } else {
+        ship.moving = false;
+    }
+}
 
 io.sockets.on('connection', function (socket) {
 
@@ -55,25 +99,21 @@ io.sockets.on('connection', function (socket) {
         var shipId = data.sid;
         var ship = ships[shipId];
         var move = false;
-        console.log("Key Press: "+data.key);
+
         switch (data.key) {
             case 'left':
-                ship.x = ship.x - speed;
                 move = true;
                 break;
             
             case 'right':
-                ship.x = ship.x + speed;
                 move = true;
                 break;
                 
             case 'up':
-                ship.y = ship.y + speed;
                 move = true;
                 break;
                 
             case 'down':
-                ship.y = ship.y - speed;
                 move = true;
                 break;
             
@@ -81,12 +121,14 @@ io.sockets.on('connection', function (socket) {
                 shots[ship.id] = shotFactory.newShot(ship);
                 io.sockets.emit('shoot', shots[ship.id]);
                 break;
-                
-            default:
         }
         if(move){
             ship.direction = data.key;
-            io.sockets.emit('updatePosition', {sid: shipId, x: ship.x, y: ship.y, direction: ship.direction });
+            ship.move = ship.move + boostduration;
+            ship.speed = ship.speed + 1;
+            if(ship.moving == false){
+                moveShip(ship);
+            }
         }
     });
 

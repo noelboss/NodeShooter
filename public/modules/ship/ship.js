@@ -28,16 +28,16 @@ var shipId,
     });
     
     socket.on('updatePosition', function(ship) {
-        $('.mod-ship-'+ship.sid).css({
+        $('.mod-ship-'+ship.id).css({
             'left': ship.x+'px',
             'top': ship.y+'px' 
         });
         
         for(var key in config.keys ){
-            $('.mod-ship-'+ship.sid).removeClass('move-'+config.keys[key]);
+            $('.mod-ship-'+ship.id).removeClass('move-'+config.keys[key]);
         }
 
-        $('.mod-ship-'+ship.sid).addClass('move-'+ship.direction);
+        $('.mod-ship-'+ship.id).addClass('move-'+ship.direction);
     });
 
 
