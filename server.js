@@ -37,7 +37,7 @@ io.sockets.on('connection', function (socket) {
     
     io.sockets.emit('buildShips', ships);
     
-    io.socket.on ('shipMove', function (data) {
+    io.socket.on('shipMove', function(data) {
         var shipId = data.sid;
         var ship = ships[shipId];
         switch (data.direction) {
