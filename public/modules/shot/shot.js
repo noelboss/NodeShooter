@@ -1,39 +1,24 @@
 (function($){
-    socket.on('createShot', function(shot) {
-        for (var sid in ships) {
-            var ship = ships[sid];
-            var $s = $('<i></i>');
-            $s.addClass('mod-ship').addClass('mod-ship-'+ship.id)
-                .css({ 
-                    'left': ship.x+'%',
-                    'top': ship.y+'%' 
-                }).appendTo($('body'));
+    var createShot = function(shot) {
+        console.log(shot);
+        var $s = $('<i></i>');
+        $s.addClass('mod-ship').addClass('mod-ship-'+shot.id)
+            .css({ 
+                'left': shot.x+'%',
+                'top': shot.y+'%' 
+            }).appendTo($('body'));
+    }
+    
+    socket.on('buildShots', function(shots) {
+        for (var id in shots) {
+            createShot(shots[id]);
         }
     });
     
-    socket.on('createShot', function(shot) {
-        for (var sid in ships) {
-            var ship = ships[sid];
-            var $s = $('<i></i>');
-            $s.addClass('mod-ship').addClass('mod-ship-'+ship.id)
-                .css({ 
-                    'left': ship.x+'%',
-                    'top': ship.y+'%' 
-                }).appendTo($('body'));
-        }
-    });
+    socket.on('shoot', createShot);
     
-    socket.on('updatePosition', function(ship) {
-        console.log('Move .mod-ship-'+ship.sid);
-        $('.mod-ship-'+ship.sid).css({ 
-            'left': ship.x+'%',
-            'top': ship.y+'%' 
-        });
-        for(var key in config.keys ){
-            $('.mod-ship-'+ship.sid).removeClass('move-'+config.keys[key]);
-        }
-        console.log('Add .move-'+ship.direction);
-        $('.mod-ship-'+ship.sid).addClass('move-'+ship.direction);
+    socket.on('updateShot', function(shot) {
+        console.log('updateShot .mod-shot-'+shot.sid);
     });
 })(jQuery);
 

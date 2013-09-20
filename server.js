@@ -42,6 +42,7 @@ io.sockets.on('connection', function (socket) {
         'shipId': socket.id
     });
     socket.emit('buildShips', ships);
+    socket.emit('buildShots', shots);
     
     socket.on('keyPress', function(data) {
         var shipId = data.sid;
@@ -70,8 +71,8 @@ io.sockets.on('connection', function (socket) {
                 break;
             
             case 'shoot':
-                shots[ship.id] = shotFactory.newShip(ship);
-                socket.emit('createShot', shot);
+                shots[ship.id] = shotFactory.newShot(ship);
+                io.sockets.emit('shoot', shots[ship.id]);
                 break;
                 
             default:
