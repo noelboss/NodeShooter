@@ -1,6 +1,5 @@
 var socket = io.connect();
 
-
 $(document).ready(function(){
     $(window).keydown(function(e) {
         console.log('Keypress: '+e.which);

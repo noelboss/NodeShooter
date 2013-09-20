@@ -25,12 +25,11 @@ var shipId,
             'left': ship.x+'%',
             'top': ship.y+'%' 
         });
-        console.log(config);
         
         for(var key in config.keys ){
             $('.mod-ship-'+ship.sid).removeClass('move-'+config.keys[key]);
         }
-        console.log('Add .move-'+ship.direction);
+
         $('.mod-ship-'+ship.sid).addClass('move-'+ship.direction);
     });
 

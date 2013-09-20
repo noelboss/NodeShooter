@@ -1,5 +1,17 @@
 (function($){
-    socket.on('createShot', function(ships) {
+    socket.on('createShot', function(shot) {
+        for (var sid in ships) {
+            var ship = ships[sid];
+            var $s = $('<i></i>');
+            $s.addClass('mod-ship').addClass('mod-ship-'+ship.id)
+                .css({ 
+                    'left': ship.x+'%',
+                    'top': ship.y+'%' 
+                }).appendTo($('body'));
+        }
+    });
+    
+    socket.on('createShot', function(shot) {
         for (var sid in ships) {
             var ship = ships[sid];
             var $s = $('<i></i>');
