@@ -42,7 +42,7 @@
     });
     
     $(document).ready(function(){
-        $(window).keydown(function(e) {§
+        $(window).keydown(function(e) {
             switch (event.which) {
                 case keys.left || keys.right || keys.up || keys.down:
                     console.log(shipId+" left");

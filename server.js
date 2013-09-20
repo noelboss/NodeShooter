@@ -63,7 +63,7 @@ io.sockets.on('connection', function (socket) {
                 
             default:
         }
-        socket.emit('updatePosition', {sid: shipId, x: ship.x, y: ship.y });
+        io.socket.emit('updatePosition', {sid: shipId, x: ship.x, y: ship.y });
         
     });
 
