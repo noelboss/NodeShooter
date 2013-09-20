@@ -1,12 +1,11 @@
 
 var newShip = function(id) {
-    var ship = {
+    return {
         'id': id,
         x: Math.round(Math.random() * 80),
-        y: Math.round(Math.random() * 80)
+        y: Math.round(Math.random() * 80),
+        direction: 'up'
     }
-    
-    return ship;
 }
 
 exports.newShip = newShip;

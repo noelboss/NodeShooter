@@ -2,16 +2,19 @@ var express = require('express'),
     app = express(),
     server = require('http').createServer(app),
     io = require('socket.io').listen(server, { log: false }),
-    shipFactory = require('./shipFactory.js'),
+    shipFactory = require('./shipFactory'),
+    shotFactory = require('./shotFactory'),
     jade = require('jade'),
-    //lessMiddleware = require('less-middleware'),
     ships = {},
+    shots = {},
     port = 3000,
+    speed = 3,
     keys = {
-        left: 65, // A
-        right: 68, // D
-        up: 87, // W
-        down: 83 // S
+        65: "left", // A
+        68: "right", // D
+        87: "down", // W
+        83: "up", // S
+        32: "shoot" // space
     };
 
 
@@ -28,42 +31,55 @@ app.get('/', function(req, res){
 
 server.listen(port);
 
+
+
 io.sockets.on('connection', function (socket) {
     ships[socket.id] = shipFactory.newShip(socket.id);
-    ships[socket.id].me = true;
-    console.log('Ship Connected '+socket.id);
+    console.log('My ID '+socket.id);
+
+    socket.emit ('config', { 
+        'keys': keys,
+        'shipId': socket.id
+    });
+    socket.emit('buildShips', ships);
     
-    io.sockets.emit ('config', { 'keys': keys });
-    io.sockets.emit('buildShips', ships);
-    
-    socket.on('shipMove', function(data) {
+    socket.on('keyPress', function(data) {
         var shipId = data.sid;
         var ship = ships[shipId];
-        switch (data.direction) {
-            case keys.left:
-                console.log(shipId+" left");
-                ship.x = ship.x - 10;
+        var move = false;
+        console.log("Key Press: "+data.key);
+        switch (data.key) {
+            case 'left':
+                ship.x = ship.x - speed;
+                move = true;
                 break;
             
-            case keys.right:
-                console.log(shipId+" right");
-                ship.x = ship.x + 10;
+            case 'right':
+                ship.x = ship.x + speed;
+                move = true;
                 break;
                 
-            case keys.up:
-                console.log(shipId+" up");
-                ship.x = ship.y + 10;
+            case 'up':
+                ship.y = ship.y + speed;
+                move = true;
                 break;
                 
-            case keys.down:
-                console.log(shipId+" down");
-                ship.x = ship.y - 10;
+            case 'down':
+                ship.y = ship.y - speed;
+                move = true;
+                break;
+            
+            case 'shoot':
+                shots[ship.id] = shotFactory.newShip(ship);
+                socket.emit('createShot', shot);
                 break;
                 
             default:
         }
-        io.sockets.emit('updatePosition', {sid: shipId, x: ship.x, y: ship.y });
-        
+        if(move){
+            ship.direction = data.key;
+            socket.emit('updatePosition', {sid: shipId, x: ship.x, y: ship.y, direction: ship.direction });
+        }
     });
 
     socket.on('disconnect', function () {
