@@ -1,52 +1,57 @@
 (function($){
+    var shipId;
+    var keys = {};
     $(document).ready(function(){
-        var keyRight = 68, // D
-            keyLeft = 65, // A
-            keyUp = 87, // W
-            keyDown = 83; // S
-        
+
         $(window).keydown(function(e) {
             //console.log(event.which);
+            
             switch (event.which) {
-                case keyRight:
-                    console.log("turn right");
+                case keys.left || keys.right || keys.up || keys.down:
+                    console.log(shipId+" left");
+                    socket.emit('shipMove', {sid: shipId, direction: event.which});
                     break;
-                    
-                case keyLeft:
-                    console.log("turn left");
-                    break;
-                    
-                case keyUp:
-                    console.log("accelerate");
-                    break;
-                    
-                case keyDown:
-                    console.log("slow down");
-                    break;
-                    
                 default:
-                
             }
         });
+        
+        
+        socket.on('config', function(config) {
+            keys = config.configkeys;
+        });
+
+        socket.on('buildShips', function(ships) {
+            for (var sid in ships) {
+                var ship = ships[sid];
+                var $s = $('<div><i></i><i></i><i></i><span>'+ship.id+'</span></div>');
+                console.log("add Ship "+ship.id);
+                if(ship.me){
+                    $s.addClass('mod-ship-own');
+                    shipId = sid;
+                }
+                $s.addClass('mod-ship').addClass('mod-ship-'+ship.id)
+                    .css({ 
+                        'left': ship.x+'%',
+                        'top': ship.y+'%' 
+                    }).appendTo($('body'));
+            }
+        });
+        
+        socket.on('updatePosition', function(ship) {
+            $('.mod-ship-'+ship.sid).css({ 
+                'left': ship.x+'%',
+                'top': ship.y+'%' 
+            });
+        });
+        
+        
+
+
+        socket.on('removeShip', function(id) {
+            console.log('Remove #ship-'+id);
+            $('.mod-ship-'+id).remove();
+        });
+        
     });
 })(jQuery);
 
-
-socket.on('sendShip', function(ships, id) {
-    for (var sid in ships) {
-        var ship = ships[sid];
-        var $s = $('<div><i></i><i></i><i></i><span>'+ship.id+'</span></div>');
-        console.log("add Ship "+ship.id);
-
-        $s.addClass('mod-ship').addClass('mod-ship-'+ship.id)
-            .css({ 
-                'left': ship.x+'%',
-                'top': ship.y+'%' 
-            }).appendTo($('body'));
-    }
-});
-
-socket.on('removeShip', function(id) {
-    console.log('Remove #ship-'+id);
-    $('.mod-ship-'+id).remove();
-});
