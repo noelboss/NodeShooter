@@ -7,7 +7,6 @@ var shipId,
         for (var sid in ships) {
             var ship = ships[sid];
             var $s = $('<div><i></i><i></i><i></i><span>'+ship.id+'</span></div>');
-            console.log("add Ship "+ship.id);
             if(shipId == ship.id){
                 $s.addClass('mod-ship-own');
             }
@@ -20,8 +19,7 @@ var shipId,
     });
     
     socket.on('updatePosition', function(ship) {
-        console.log('Move .mod-ship-'+ship.sid);
-        $('.mod-ship-'+ship.sid).css({ 
+        $('.mod-ship-'+ship.sid).css({
             'left': ship.x+'%',
             'top': ship.y+'%' 
         });
@@ -35,7 +33,6 @@ var shipId,
 
 
     socket.on('removeShip', function(id) {
-        console.log('Remove .mod-ship-'+id);
         $('.mod-ship-'+id).remove();
     });
 })(jQuery);

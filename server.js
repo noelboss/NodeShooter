@@ -35,13 +35,12 @@ server.listen(port);
 
 io.sockets.on('connection', function (socket) {
     ships[socket.id] = shipFactory.newShip(socket.id);
-    console.log('My ID '+socket.id);
 
     socket.emit ('config', { 
         'keys': keys,
         'shipId': socket.id
     });
-    socket.emit('buildShips', ships);
+    io.sockets.emit('buildShips', ships);
     
     socket.on('keyPress', function(data) {
         var shipId = data.sid;
@@ -78,12 +77,11 @@ io.sockets.on('connection', function (socket) {
         }
         if(move){
             ship.direction = data.key;
-            socket.emit('updatePosition', {sid: shipId, x: ship.x, y: ship.y, direction: ship.direction });
+            io.sockets.emit('updatePosition', {sid: shipId, x: ship.x, y: ship.y, direction: ship.direction });
         }
     });
 
     socket.on('disconnect', function () {
-        console.info('Disconnect ship ' + socket.id);
         delete ships[socket.id];
         io.sockets.emit ('removeShip', socket.id);
     });
