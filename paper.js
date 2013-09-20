@@ -7,7 +7,7 @@ var express = require('express'),
     jade = require('jade'),
     ships = {},
     shots = {},
-    port = 3000,
+    port = 3333,
     boostduration = 300,
     maxSpeed = 5,
     minSpeed = 1,
@@ -33,7 +33,7 @@ setTimeout(function () {
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
-app.set("view options", { layout: true });
+app.set("view options", { layout: false });
 app.configure(function() {
     app.use(express.static(__dirname + '/public'));
 });

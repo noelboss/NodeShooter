@@ -1,4 +1,18 @@
-extends layout
-block content
+doctype 5
+html
+   head
+      title NodeShooter with Paper
+      script(src='js/jquery-1.10.2.min.js')
+      script(src="/socket.io/socket.io.js")
+      script(src="js/paper.js")
+      script(src="js/app.js")
+      
+      link(rel="stylesheet", href="modules/ship/ship.css")
+      script(src="modules/ship/ship.js")
+      
+      link(rel="stylesheet", href="modules/shot/shot.css")
+      script(src="modules/shot/shot.js")
+
+   body
     canvas(id="draw", resize="true")
     script(type="text/paperscript", src="javascripts/draw.js", canvas="draw")
