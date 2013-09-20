@@ -12,8 +12,8 @@ var shipId,
         }
         $s.addClass('mod-ship').addClass('mod-ship-'+ship.id)
             .css({ 
-                'left': ship.x+'%',
-                'top': ship.y+'%' 
+                'left': ship.x+'px',
+                'top': ship.y+'px' 
             }).appendTo($('body'));
     }
     

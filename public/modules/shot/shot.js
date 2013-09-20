@@ -2,6 +2,9 @@
     var createShot = function(shot) {
         console.log(shot);
         var $s = $('<i></i>');
+        if(shipId == shot.id){
+            $s.addClass('mod-shot-own');
+        }
         $s.addClass('mod-shot').addClass('mod-shot-'+shot.id)
             .css({ 
                 'left': shot.x+'px',
