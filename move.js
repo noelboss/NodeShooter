@@ -4,7 +4,7 @@ var newShot = function(ship) {
         'id': ship.id,
         x: ship.x+15,
         y: ship.y+15,
-        direction: ship.direction,
+        direction: ship.direction
     };
 }
 

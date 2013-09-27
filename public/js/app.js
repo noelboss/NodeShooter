@@ -81,24 +81,24 @@ function keepInView(item) {
 
 function onFrame() {
 	if (Key.isDown('left')){
-    	vector = vector + (new Point(10,0) - vector) / 30;
+    	vector = vector + (new Point(20,0) - vector) / 30;
 		sperm.left();
 	    
 	}
 
 	if (Key.isDown('right')){
-    	vector = vector + (new Point(-10,0) - vector) / 30;
+    	vector = vector + (new Point(-20,0) - vector) / 30;
 		sperm.right();
 	    
 	}
 
 	if (Key.isDown('up')){
-    	vector = vector + (new Point(0,-10) - vector) / 30;
+    	vector = vector + (new Point(0,-20) - vector) / 30;
 		sperm.forward();
 	}
 
 	if (Key.isDown('down')){
-    	vector = vector + (new Point(0,10) - vector) / 30;
+    	vector = vector + (new Point(0,20) - vector) / 30;
 		sperm.reverse();
 	    
 	}
